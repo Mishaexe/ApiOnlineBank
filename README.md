@@ -71,6 +71,13 @@ psql -U postgres -d ApiOnlineBankingdb -f sql/dump.sql
 
 ---
 
+## 🔗 Live Demo
+
+Сервис развернут и доступен по адресу:  
+👉 [https://apionlinebank.onrender.com](https://apionlinebank.onrender.com)
+
+---
+
 ## API
 
 Все эндпоинты доступны по адресу: `http://localhost:8080`
