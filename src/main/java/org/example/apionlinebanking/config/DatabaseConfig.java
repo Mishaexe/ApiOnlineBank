@@ -13,20 +13,21 @@ public class DatabaseConfig {
     @Bean
     @Primary
     public DataSource dataSource() {
+
         String databaseUrl = System.getenv("DATABASE_URL");
 
         if (databaseUrl != null && !databaseUrl.isEmpty()) {
             try {
-                // DATABASE_URL имеет вид: postgres://user:pass@host:port/dbname
+
                 URI uri = new URI(databaseUrl);
 
                 String username = uri.getUserInfo().split(":")[0];
                 String password = uri.getUserInfo().split(":")[1];
                 String host = uri.getHost();
                 int port = uri.getPort();
-                String path = uri.getPath(); // начинается с /
+                String path = uri.getPath();
 
-                String jdbcUrl = "jdbc:postgresql://" + host + ":" + port + path;
+                String jdbcUrl = "jdbc:postgresql://" + host + ":" + port + path + "?sslmode=require";
 
                 return DataSourceBuilder.create()
                         .driverClassName("org.postgresql.Driver")
@@ -39,7 +40,7 @@ public class DatabaseConfig {
                 throw new RuntimeException("Не удалось подключиться к базе через DATABASE_URL", e);
             }
         } else {
-            // Локальный режим (для разработки)
+
             return DataSourceBuilder.create()
                     .driverClassName("org.postgresql.Driver")
                     .url("jdbc:postgresql://localhost:5432/ApiOnlineBankingdb")
