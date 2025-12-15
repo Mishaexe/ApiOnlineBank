@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Primary;
 import javax.sql.DataSource;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import java.net.URI;
+import java.net.URISyntaxException;
 
 @Configuration
 public class DatabaseConfig {
@@ -18,15 +19,22 @@ public class DatabaseConfig {
     @Primary
     public DataSource dataSource() {
         String databaseUrl = System.getenv("DATABASE_URL");
-        log.info("DATABASE_URL is present: {}", databaseUrl != null);
 
         if (databaseUrl != null && !databaseUrl.isEmpty()) {
             try {
                 URI uri = new URI(databaseUrl);
                 String[] userPass = uri.getUserInfo().split(":");
-                String jdbcUrl = "jdbc:postgresql://" + uri.getHost() + ":" + uri.getPort() + uri.getPath() + "?sslmode=require";
+                String host = uri.getHost();
+                int port = uri.getPort();
+                String path = uri.getPath();
 
-                log.info("Using JDBC URL: jdbc:postgresql://{}:{}{}", uri.getHost(), uri.getPort(), uri.getPath());
+                if (port == -1) {
+                    port = 5432;
+                }
+
+                String jdbcUrl = "jdbc:postgresql://" + host + ":" + port + path + "?sslmode=require";
+
+                log.info("Using JDBC URL: {}", jdbcUrl);
 
                 return DataSourceBuilder.create()
                         .driverClassName("org.postgresql.Driver")
@@ -34,9 +42,10 @@ public class DatabaseConfig {
                         .username(userPass[0])
                         .password(userPass[1])
                         .build();
-            } catch (Exception e) {
+
+            } catch (URISyntaxException e) {
                 log.error("Failed to parse DATABASE_URL", e);
-                throw new RuntimeException(e);
+                throw new RuntimeException("Неверный формат DATABASE_URL", e);
             }
         } else {
             log.warn("No DATABASE_URL found — using local fallback");
