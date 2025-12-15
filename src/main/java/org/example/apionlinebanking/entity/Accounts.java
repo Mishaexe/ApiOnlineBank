@@ -8,13 +8,15 @@ import java.math.BigDecimal;
 
 @Entity
 @Data
-@Table(name = "Accounts")
+@Table(name = "accounts")
 public class Accounts {
 
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    long idUsers;
+    @Column(name = "id_users")
+    private long idUsers;
 
-    BigDecimal money;
+    @Column(name = "money")
+    private BigDecimal money;
 }

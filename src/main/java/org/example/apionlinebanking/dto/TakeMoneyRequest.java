@@ -1,6 +1,5 @@
 package org.example.apionlinebanking.dto;
 
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
 import lombok.Data;
 
