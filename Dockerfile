@@ -5,7 +5,7 @@ WORKDIR /app
 
 
 COPY mvnw .
-
+COPY mvnw.cmd .
 COPY .mvn .mvn/
 COPY pom.xml .
 
