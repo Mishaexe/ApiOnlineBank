@@ -38,5 +38,6 @@ class OperationsServiceTest {
                     operation.getType() == type &&
                     operation.getAmount().compareTo(amount) == 0;
         }));
+
     }
 }
