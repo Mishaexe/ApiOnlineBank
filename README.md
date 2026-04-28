@@ -74,7 +74,7 @@ psql -U postgres -d ApiOnlineBankingdb -f sql/dump.sql
 ## 🔗 Live Demo
 
 Сервис развернут и доступен по адресу:  
-👉[ [https://apionlinebank.onrender.com](https://apionlinebank.onrender.com)](https://apionlinebank-v2.onrender.com/)
+👉[(https://apionlinebank-v2.onrender.com/)](https://apionlinebank-v2.onrender.com/)
 
 # Пример: получить баланс пользователя под Id 1.
 
