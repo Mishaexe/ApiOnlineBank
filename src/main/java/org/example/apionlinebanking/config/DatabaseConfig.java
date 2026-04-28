@@ -10,7 +10,7 @@ import org.springframework.boot.jdbc.DataSourceBuilder;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-@Configuration
+// @Configuration
 public class DatabaseConfig {
 
     private static final Logger log = LoggerFactory.getLogger(DatabaseConfig.class);
